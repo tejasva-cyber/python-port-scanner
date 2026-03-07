@@ -33,4 +33,5 @@ Enhanced version with:
 
 ## Example Output
 
-![Scanner Output](Screenshot 2026-03-08 014452.png)
+![Scanner Output](./Screenshot%202026-03-08%20014452.png)
+
