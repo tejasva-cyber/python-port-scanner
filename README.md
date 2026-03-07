@@ -30,3 +30,7 @@ Enhanced version with:
 
 1. Clone the repository
 2. Run the scanner
+
+## Example Output
+
+![Scanner Output](Screenshot 2026-03-08 014452.png)
