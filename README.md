@@ -1,37 +1,55 @@
-# Python Port Scanner
+#  Python Port Scanner
 
-A Python-based multithreaded port scanner built for learning network security fundamentals.
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## Project Versions
+A multithreaded TCP port scanner built from scratch in Python.  
+Started as a basic script → improved after finding critical flaws in v1.
 
-Version 1 – Basic Port Scanner  
-File: Scanner.py  
 
-A simple Python script that scans ports 1–1024 on a target host using socket connections and threads.
+##  Versions
 
-Version 2 – Advanced Port Scanner  
-File: scanner2.py  
+| Version | File | Description |
 
-Enhanced version with:
-- Thread pool scanning
-- Banner grabbing
-- Hostname resolution
-- Input validation
-- Custom port ranges
+| v1 | Scanner.py | Basic scanner — 1024 raw threads, ports 1–1024 |
+| v2 | scanner2.py | Thread pool + banner grabbing + hostname support + validation |
 
-## Technologies Used
+---
 
-- Python
-- socket
-- threading
-- queue
+##  What I Improved (v1 → v2)
 
-## How to Run
+- **Fixed thread exhaustion:** v1 spawned 1024 threads at once → v2 uses 100 pooled threads via Queue
+- **Added hostname resolution:** Can now scan `scanme.nmap.org`, not just IPs
+- **Added banner grabbing:** Identifies actual running service, not just port name
+- **Added input validation:** No more crashes on bad input
+- **Added ethical auth prompt:** Legal safeguard before scanning
 
-1. Clone the repository
-2. Run the scanner
+---
 
-## Example Output
+##  How to Run
+```bash
+# Clone the repo
+git clone https://github.com/tejasva-cyber/python-port-scanner.git
+cd python-port-scanner
 
+# Run v1 (basic)
+python Scanner.py
+
+# Run v2 (enhanced)
+python scanner2.py
+```
+
+##  Output
 ![Scanner Output](./Screenshot%202026-03-08%20014452.png)
 
+
+
+##  Legal Notice
+Only use on systems you own or have explicit written permission to scan.  
+Unauthorized port scanning is illegal under the IT Act 2000 (India) §66.
+
+---
+
+##  Built With
+Python | socket | threading | queue
+2. Run the scanner
