@@ -40,7 +40,7 @@ python scanner2.py
 ```
 
 ##  Output
-![Scanner Output](./Screenshot%202026-03-08%20014452.png)
+![Scanner Output](scanner-output.png.)
 
 
 
