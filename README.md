@@ -40,7 +40,7 @@ python scanner2.py
 ```
 
 ##  Output
-![Scanner Output](scanner-output.png.)
+<img width="1416" height="471" alt="Screenshot 2026-03-13 220353" src="https://github.com/user-attachments/assets/c770cd66-9a62-4a89-ae54-1237ede57c8f" />
 
 
 
