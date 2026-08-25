@@ -1,55 +1,82 @@
-#  Python Port Scanner
+# Python Port Scanner
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-A multithreaded TCP port scanner built from scratch in Python.  
-Started as a basic script → improved after finding critical flaws in v1.
+An advanced multithreaded TCP port scanner built from scratch in Python — pure
+standard library, no external dependencies.
 
-
-##  Versions
-
-| Version | File | Description |
-
-| v1 | Scanner.py | Basic scanner — 1024 raw threads, ports 1–1024 |
-| v2 | scanner2.py | Thread pool + banner grabbing + hostname support + validation |
+It started as a basic script that spawned 1024 raw threads and grew into a full
+command-line tool with a bounded thread pool, banner grabbing, flexible port
+specs, and JSON output.
 
 ---
 
-##  What I Improved (v1 → v2)
+## Features
 
-- **Fixed thread exhaustion:** v1 spawned 1024 threads at once → v2 uses 100 pooled threads via Queue
-- **Added hostname resolution:** Can now scan `scanme.nmap.org`, not just IPs
-- **Added banner grabbing:** Identifies actual running service, not just port name
-- **Added input validation:** No more crashes on bad input
-- **Added ethical auth prompt:** Legal safeguard before scanning
+- **Command-line interface** — `python Scanner.py <target> -p 1-1024` — or run
+  it with no arguments to drop into an interactive prompt
+- **Flexible port specs** — single ports, lists, and ranges:
+  `80`, `1-1024`, `22,80,443`, `1-100,443,8000-8100`
+- **`--top` quick scan** — a preset list of the most common ports
+- **Thread pool** — a bounded, configurable worker pool (`-w`) via
+  `ThreadPoolExecutor`, instead of one raw thread per port
+- **Banner grabbing** — a light HTTP probe identifies the actual running service
+- **Hostname resolution** — scan `scanme.nmap.org`, not just raw IPs
+- **JSON output** — `--json` prints clean, machine-readable results to stdout
+- **Polished UX** — live progress, scan timing, colored output (auto-disabled
+  when piped), and graceful `Ctrl+C` handling
+- **Ethical safeguard** — interactive mode asks for authorization before scanning
 
 ---
 
-##  How to Run
+## Usage
+
 ```bash
 # Clone the repo
 git clone https://github.com/tejasva-cyber/python-port-scanner.git
 cd python-port-scanner
 
-# Run v1 (basic)
+# Interactive mode (prompts for a target)
 python Scanner.py
 
-# Run v2 (enhanced)
-python scanner2.py
+# Scan the default range (1-1024) on a host
+python Scanner.py scanme.nmap.org
+
+# Specific ports / ranges, more workers, with banner grabbing
+python Scanner.py 192.168.1.10 -p 22,80,443,8000-8100 -w 400
+
+# Quick scan of common ports, JSON output
+python Scanner.py example.com --top --json
 ```
 
-##  Output
-<img width="1416" height="471" alt="Screenshot 2026-03-13 220353" src="https://github.com/user-attachments/assets/c770cd66-9a62-4a89-ae54-1237ede57c8f" />
+### Options
 
+| Flag | Description |
+|------|-------------|
+| `-p`, `--ports` | Port spec, e.g. `22,80,443,8000-8100` (default: `1-1024`) |
+| `--top` | Scan a preset list of common ports (overrides `-p`) |
+| `-t`, `--timeout` | Connect timeout in seconds (default: `0.5`) |
+| `-w`, `--workers` | Number of concurrent workers (default: `200`) |
+| `--no-banner` | Skip banner grabbing (faster) |
+| `--json` | Print results as JSON to stdout |
+| `--no-color` | Disable colored output |
 
+---
 
-##  Legal Notice
-Only use on systems you own or have explicit written permission to scan.  
+## Output
+
+<img width="1416" height="471" alt="Scanner output" src="https://github.com/user-attachments/assets/c770cd66-9a62-4a89-ae54-1237ede57c8f" />
+
+---
+
+## Legal Notice
+
+Only use on systems you own or have explicit written permission to scan.
 Unauthorized port scanning is illegal under the IT Act 2000 (India) §66.
 
 ---
 
-##  Built With
-Python | socket | threading | queue
-2. Run the scanner
+## Built With
+
+Python · socket · concurrent.futures · argparse
